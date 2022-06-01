@@ -18,3 +18,4 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
 });
 
+Route::get('/api/v1/users/current/durations?date=2022-06-01&paywalled=true', [ApiController::class, 'index']);

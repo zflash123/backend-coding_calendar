@@ -8,4 +8,5 @@ use Illuminate\Database\Eloquent\Model;
 class CodeDuration extends Model
 {
     use HasFactory;
+    
 }
