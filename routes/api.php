@@ -26,7 +26,18 @@ Route::get('/user/durations', function () {
     ])->get('https://wakatime.com/api/v1/users/current/durations', [
         'date' => '2022-06-01',
         'paywalled' => 'true',
-        
+
+    ]);
+    return $response;
+});
+
+Route::get('/user/durations/{project_name}', function ($project_name) {
+    $response = Http::withHeaders([
+        'Authorization' => 'Basic ZTRkMGI1YjctZGIxYy00ZDU0LTk4ZTUtZmE4ZmU0N2FiZWFi'
+    ])->get('https://wakatime.com/api/v1/users/current/durations', [
+        'date' => '2022-06-01',
+        'paywalled' => 'true',
+        'project' => $project_name,
     ]);
     return $response;
 });
