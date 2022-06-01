@@ -9,4 +9,5 @@ class CodeDuration extends Model
 {
     use HasFactory;
     
+    
 }
