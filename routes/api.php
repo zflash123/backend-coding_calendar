@@ -20,24 +20,6 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
 });
 
-Route::get('/user/durations', function () {
-    $response = Http::withHeaders([
-        'Authorization' => 'Basic ZTRkMGI1YjctZGIxYy00ZDU0LTk4ZTUtZmE4ZmU0N2FiZWFi'
-    ])->get('https://wakatime.com/api/v1/users/current/durations', [
-        'date' => '2022-06-01',
-        'paywalled' => 'true',
+Route::get('/user/durations', [ApiController::class, 'user_duration']);
 
-    ]);
-    return $response;
-});
-
-Route::get('/user/duration/{project_name}', function ($project_name) {
-    $response = Http::withHeaders([
-        'Authorization' => 'Basic ZTRkMGI1YjctZGIxYy00ZDU0LTk4ZTUtZmE4ZmU0N2FiZWFi'
-    ])->get('https://wakatime.com/api/v1/users/current/durations', [
-        'date' => '2022-06-01',
-        'paywalled' => 'true',
-        'project' => $project_name,
-    ]);
-    return $response;
-});
+Route::get('/user/duration/{project_name}', [ApiController::class, 'project_duration']);

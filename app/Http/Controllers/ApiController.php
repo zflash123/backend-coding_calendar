@@ -8,11 +8,24 @@ use Illuminate\Support\Facades\Http;
 
 class ApiController extends Controller
 {
-    public function index()
-    {
-        $response = Http::get('https://freegeoip.app/json/192.168.1.2');
-        // $response = Http::get('https://wakatime.com/api/v1/users/current/durations?date=2022-06-01&paywalled=true');
-        // return $response;
-        return "{}";
+    public function user_duration() {
+        $response = Http::withHeaders([
+            'Authorization' => 'Basic ZTRkMGI1YjctZGIxYy00ZDU0LTk4ZTUtZmE4ZmU0N2FiZWFi'
+        ])->get('https://wakatime.com/api/v1/users/current/durations', [
+            'date' => '2022-06-01',
+            'paywalled' => 'true',
+        ]);
+        return $response;
+    }
+    
+    public function project_duration($project_name) {
+        $response = Http::withHeaders([
+            'Authorization' => 'Basic ZTRkMGI1YjctZGIxYy00ZDU0LTk4ZTUtZmE4ZmU0N2FiZWFi'
+        ])->get('https://wakatime.com/api/v1/users/current/durations', [
+            'date' => '2022-06-01',
+            'paywalled' => 'true',
+            'project' => $project_name,
+        ]);
+        return $response;
     }
 }
