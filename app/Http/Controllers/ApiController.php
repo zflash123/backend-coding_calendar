@@ -7,24 +7,26 @@ use Illuminate\Support\Facades\Http;
 
 class ApiController extends Controller
 {
-    public function user_duration() {
+    public function user_duration()
+    {
         $response = Http::withHeaders([
-            'Authorization' => 'Basic ZTRkMGI1YjctZGIxYy00ZDU0LTk4ZTUtZmE4ZmU0N2FiZWFi'
+            'Authorization' => 'Basic ODgwODBiZGItOTA0MC00Y2I0LWE2ZWEtOWEwZjVmMzc1YTdm'
         ])->get('https://wakatime.com/api/v1/users/current/durations', [
-            'date' => '2022-06-01',
+            'date' => '2022-06-25',
             'paywalled' => 'true',
         ]);
-        return $response;
+        return $response->json();
     }
-    
-    public function project_duration($project_name) {
+
+    public function project_duration($project_name)
+    {
         $response = Http::withHeaders([
-            'Authorization' => 'Basic ZTRkMGI1YjctZGIxYy00ZDU0LTk4ZTUtZmE4ZmU0N2FiZWFi'
+            'Authorization' => 'Basic ODgwODBiZGItOTA0MC00Y2I0LWE2ZWEtOWEwZjVmMzc1YTdm'
         ])->get('https://wakatime.com/api/v1/users/current/durations', [
-            'date' => '2022-06-01',
+            'date' => '2022-06-25',
             'paywalled' => 'true',
             'project' => $project_name,
         ]);
-        return $response;
+        return $response->json();
     }
 }
