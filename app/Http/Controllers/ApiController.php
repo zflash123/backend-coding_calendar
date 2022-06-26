@@ -11,15 +11,15 @@ use Illuminate\Routing\Controller;
 
 class ApiController extends Controller
 {
-    public function project_duration($yangDicari)
+    public function project_duration($yangDicari, $date)
     {
         $user = Auth::user();
         if ($user) {
             $data = Http::withHeaders([
                 'Authorization' => 'Basic '.base64_encode($user->wakatime_api)
             ])->get('https://wakatime.com/api/v1/users/current/summaries', [
-                'start' => '2022-06-26',
-                'end' => '2022-06-26',
+                'start' => $date,
+                'end' => $date,
                 'cache' => 'true',
                 'paywalled' => 'true',
 
@@ -62,22 +62,21 @@ class ApiController extends Controller
     public function create_event(Request $request)
     {
         if (Auth::user()) {
+            $validator = Validator::make($request->all(), [
+                'project_name' => ['required', 'string', 'max:255'],
+                'date_event' => ['required', 'date'],
+                'start_time_plan' => ['required'],
+                'finish_time_plan' => ['required'],
+            ]);
             if ($validator->fails()) {
                 return response()->json([
                     'success' => false,
                     'message' => $validator->errors(),
                 ], 401);
             } else {
-                $validator = Validator::make($request->all(), [
-                    'project_name' => ['required', 'string', 'max:255'],
-                    'date_event' => ['required', 'date'],
-                    'start_time_plan' => ['required'],
-                    'finish_time_plan' => ['required'],
-                    'start_wakatime' => [''],
-                ]);
                 $input = $request->all();
-                // $input['start_wakatime'] = $this->project_duration($input['project_name']);
-                dump($this->project_duration($input['project_name']));
+                $input['start_wakatime'] = $this->project_duration($input['project_name'], $input['date_event']);
+                // dump($this->project_duration($input['project_name']));
                 event_details::create($input);
                 return response()->json([
                     'success' => true,

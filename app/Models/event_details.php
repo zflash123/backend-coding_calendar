@@ -18,6 +18,7 @@ class event_details extends Model
         'date_event',
         'start_time_plan',
         'finish_time_plan',
-        // 'start_wakatime',
+        'start_wakatime',
+        'finish_wakatime',
     ];
 }

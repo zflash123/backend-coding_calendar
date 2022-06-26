@@ -19,7 +19,7 @@ return new class extends Migration
             $table->date('date_event');
             $table->time('start_time_plan');
             $table->time('finish_time_plan');
-            $table->float('start_wakatime');
+            $table->float('start_wakatime')->nullable();
             $table->float('finish_wakatime')->nullable();
             $table->timestamps();
         });
