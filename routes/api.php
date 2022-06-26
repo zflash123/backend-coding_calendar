@@ -25,7 +25,7 @@ Route::group(['prefix' => 'v1'], function () {
     Route::post('login', [UsersController::class, 'login']);
     Route::post('register', [UsersController::class, 'register']);
     Route::get('logout', [UsersController::class, 'logout'])->middleware('auth:api');
-    Route::get('user/durations', [ApiController::class, 'user_duration']);
-    Route::get('user/duration/{project_name}', [ApiController::class, 'project_duration']);
-    Route::post('user/create_event', [ApiController::class, 'create_event']);
+    Route::get('user/durations/{project_name}', [ApiController::class, 'project_duration'])->middleware('auth:api');
+    // Route::get('user/duration/{project_name}', [ApiController::class, 'project_duration'])->middleware('auth:api');
+    Route::post('user/create_event', [ApiController::class, 'create_event'])->middleware('auth:api');
 });
